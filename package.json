@@ -1,0 +1,15 @@
+{
+  "name": "restful-booker-postman",
+  "version": "1.0.0",
+  "description": "Postman collection testing the Restful-Booker booking lifecycle (auth, create, update, verify, delete) with chained variables, schema checks and negative tests.",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-collection.js",
+    "test": "newman run collections/restful-booker.postman_collection.json -e environments/restful-booker.postman_environment.json --reporters cli,htmlextra,junit --reporter-htmlextra-export reports/report.html --reporter-junit-export reports/junit.xml",
+    "test:ci": "newman run collections/restful-booker.postman_collection.json -e environments/restful-booker.postman_environment.json --env-var username=$RB_USERNAME --env-var password=$RB_PASSWORD --reporters cli,htmlextra,junit --reporter-htmlextra-export reports/report.html --reporter-junit-export reports/junit.xml"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}

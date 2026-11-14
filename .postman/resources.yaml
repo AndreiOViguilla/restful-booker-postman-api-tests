@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: 9f9276a4-ec0f-44ba-886a-353146c05c03
+
+localResources:
+  collections:
+    - ../collections/restful-booker.postman_collection.json
+  environments:
+    - ../environments/restful-booker.postman_environment.json

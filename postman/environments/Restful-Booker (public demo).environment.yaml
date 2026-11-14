@@ -1,0 +1,12 @@
+name: Restful-Booker (public demo)
+values:
+  - key: baseUrl
+    value: 'https://restful-booker.herokuapp.com'
+  - key: username
+    value: admin
+  - key: password
+    value: password123
+  - key: token
+    value: ''
+  - key: bookingId
+    value: ''

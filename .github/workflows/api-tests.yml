@@ -1,0 +1,45 @@
+name: API tests (Restful-Booker)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 1 * * *' # nightly run, 01:17 UTC
+  workflow_dispatch:
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Newman
+        run: npm ci
+
+      - name: Run the Postman collection
+        env:
+          # Set these in Settings > Secrets and variables > Actions.
+          # If they are not set, the public demo account from the environment file is used.
+          RB_USERNAME: ${{ secrets.RB_USERNAME || 'admin' }}
+          RB_PASSWORD: ${{ secrets.RB_PASSWORD || 'password123' }}
+        run: npm run test:ci
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-reports
+          path: reports/
+
+      - name: Publish JUnit results
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: reports/junit.xml
